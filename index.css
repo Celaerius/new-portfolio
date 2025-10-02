@@ -1,0 +1,505 @@
+body {
+    margin: 0;
+    font: normal 75% Arial, Helvetica, sans-serif;
+    height: auto;
+    background-color: #052d4e;
+    scroll-behavior: smooth;
+}
+
+/* ---- nav bar ---- */
+
+header {
+    display: block;
+    unicode-bidi: isolate;
+    position: relative;
+    z-index: 5;
+}
+
+.nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #000000;
+    opacity: 0.5;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.nav-start {
+    margin-left: 20px;
+}
+
+.home-icon {
+    width: 24px;
+    height: 24px;
+    fill: white;
+    pointer-events: auto;
+}
+
+.nav-end {
+    margin-right: 20px;
+    display: flex;
+    gap: 20px;
+
+    a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        pointer-events: auto;
+    }
+}
+
+/* ---- About Section ---- */
+
+#about {
+    display: block;
+    unicode-bidi: isolate;
+    color: #333;
+    position: relative;
+    padding: 200px 60px;
+    margin: 100px auto 0 auto;
+    background-color: #dee8f0;
+    z-index: 4;
+
+    h1 {
+        font-size: 4.5em;
+        margin-bottom: 10px;
+        color: #333;
+    }
+}
+
+.about-spacer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-between;
+}
+
+.about-content {
+    unicode-bidi: isolate;
+    display: flex;
+    flex-direction: column;
+}
+
+.subtitle {
+    h2 {
+        font-size: 2.5em;
+        color: #555;
+    }
+}
+
+.description {
+    font-size: 2em;
+    line-height: 1.6;
+    color: #666;
+    max-width: 800px;
+}
+
+.picture-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+    padding-right: 100px;
+}
+
+.picture {
+    max-width: 600px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.377);
+}
+
+
+/* ---- Projects Section ---- */
+
+#projects {
+    display: block;
+    unicode-bidi: isolate;
+    pointer-events: none;
+    z-index: 4;
+    position: relative;
+    margin: 100px auto 0 auto;
+    text-align: center;
+    color: #9F9C99;
+
+    h1 {
+        margin: 20px auto;
+        unicode-bidi: isolate;
+    }
+}
+
+.project-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.content-projects {
+    unicode-bidi: isolate;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+}
+
+.cards-separator {
+    unicode-bidi: isolate;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    gap: 50px;
+}
+
+.card {
+    background-color: #dee8f0;
+    color: #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 30%;
+    text-align: left;
+    pointer-events: auto;
+}
+
+/* ---- Contact Section ---- */
+
+#contact {
+    display: block;
+    unicode-bidi: isolate;
+    color: #333;
+    position: relative;
+    margin: 100px auto 0 auto;
+    padding: 20px 60px;
+    text-align: center;
+    background-color: #dee8f0;
+    z-index: 4;
+}
+
+/* ---- Footer ---- */
+
+footer {
+    display: block;
+    unicode-bidi: isolate;
+    position: relative;
+    margin: 50px auto 20px auto;
+    padding: 10px 20px;
+    text-align: center;
+    background-color: #000000;
+    color: white;
+    opacity: 0.8;
+    z-index: 4;
+}
+
+/* ---- particles.js container ---- */
+
+canvas {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+}
+
+
+#particles-js {
+    display: block;
+    unicode-bidi: isolate;
+    position: absolute;
+    width: 100%;
+    height: auto;
+    background-color: #052d4e;
+    background-image: url("");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+
+
+
+
+
+
+/******* Fonts Import Start **********/
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+/********* Fonts Face CSS End **********/
+
+/******* Common Element CSS Start ******/
+
+.clear {
+    clear: both;
+}
+
+img {
+    max-width: 100%;
+    border: 0px;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    outline: none;
+    transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+}
+
+a:focus,
+a:active,
+a:visited,
+a:hover {
+    text-decoration: none;
+    outline: none;
+}
+
+a:hover {
+    color: #e73700;
+}
+
+h2 {
+    margin-bottom: 48px;
+    padding-bottom: 16px;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 700;
+    position: relative;
+    text-transform: capitalize;
+}
+
+h3 {
+    margin: 0 0 10px;
+    font-size: 28px;
+    line-height: 36px;
+}
+
+button {
+    outline: none !important;
+}
+
+/******* Common Element CSS End *********/
+
+/* -------- title style ------- */
+.line-title {
+    position: relative;
+    width: 400px;
+    margin: 50px 45px;
+    color: #dee8f0;
+    font-size: 2.5em;
+}
+
+/******* Middle section CSS Start ******/
+/* -------- Landing page ------- */
+.game-section {
+    padding: 60px 50px;
+    margin: 100px 0;
+    pointer-events: none;
+}
+
+.game-section .owl-stage {
+    margin: 15px 0;
+}
+
+.game-section .owl-dots {
+    pointer-events: auto;
+}
+
+.game-section .item {
+    margin: 0 15px 60px;
+    width: 320px;
+    height: 400px;
+    display: flex;
+    align-items: flex-end;
+    -webkit-align-items: flex-end;
+    background: #343434 no-repeat center center / cover;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    cursor: pointer;
+    z-index: 4;
+    pointer-events: auto;
+}
+
+.game-section .item.active {
+    width: 500px;
+    box-shadow: 12px 40px 40px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: 12px 40px 40px rgba(0, 0, 0, 0.25);
+}
+
+.game-section .item:after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+}
+
+.game-section .item-desc {
+    padding: 0 24px 12px;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    transform: translateY(calc(100% - 54px));
+    -webkit-transform: translateY(calc(100% - 54px));
+    transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+}
+
+.game-section .item.active .item-desc {
+    transform: none;
+    -webkit-transform: none;
+}
+
+.game-section .item-desc p {
+    opacity: 0;
+    -webkit-transform: translateY(32px);
+    transform: translateY(32px);
+    transition: all 0.4s ease-in-out 0.2s;
+    -webkit-transition: all 0.4s ease-in-out 0.2s;
+}
+
+.game-section .item.active .item-desc p {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+
+.game-section .owl-theme.custom-carousel .owl-dots {
+    margin-top: -20px;
+    position: relative;
+    z-index: 5;
+}
+
+/******** Middle section CSS End *******/
+
+/***** responsive css Start ******/
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    h2 {
+        margin-bottom: 32px;
+    }
+
+    h3 {
+        margin: 0 0 8px;
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    /* -------- Landing page ------- */
+    .game-section {
+        padding: 50px 30px;
+    }
+
+    .game-section .item {
+        margin: 0 12px 60px;
+        width: 260px;
+        height: 360px;
+    }
+
+    .game-section .item.active {
+        width: 400px;
+    }
+
+    .game-section .item-desc {
+        transform: translateY(calc(100% - 46px));
+        -webkit-transform: translateY(calc(100% - 46px));
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    h2 {
+        margin-bottom: 32px;
+    }
+
+    h3 {
+        margin: 0 0 8px;
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    .line-title {
+        width: 330px;
+    }
+
+    /* -------- Landing page ------- */
+    .game-section {
+        padding: 50px 30px 40px;
+    }
+
+    .game-section .item {
+        margin: 0 12px 60px;
+        width: 240px;
+        height: 330px;
+    }
+
+    .game-section .item.active {
+        width: 360px;
+    }
+
+    .game-section .item-desc {
+        transform: translateY(calc(100% - 42px));
+        -webkit-transform: translateY(calc(100% - 42px));
+    }
+}
+
+@media (max-width: 767px) {
+    body {
+        font-size: 14px;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        margin: 0 0 8px;
+        font-size: 19px;
+        line-height: 24px;
+    }
+
+    .line-title {
+        width: 250px;
+    }
+
+    /* -------- Landing page ------- */
+    .game-section {
+        padding: 30px 15px 20px;
+    }
+
+    .game-section .item {
+        margin: 0 10px 40px;
+        width: 200px;
+        height: 280px;
+    }
+
+    .game-section .item.active {
+        width: 270px;
+        box-shadow: 6px 10px 10px rgba(0, 0, 0, 0.25);
+        -webkit-box-shadow: 6px 10px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    .game-section .item-desc {
+        padding: 0 14px 5px;
+        transform: translateY(calc(100% - 42px));
+        -webkit-transform: translateY(calc(100% - 42px));
+    }
+}
