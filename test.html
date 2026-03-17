@@ -4,581 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Robine Charles-Edouard | Développeur Full-Stack</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #0a4d7a;
-            --secondary: #0891b2;
-            --accent: #f59e0b;
-            --dark: #0f172a;
-            --light: #f1f5f9;
-            --gradient: linear-gradient(135deg, #0a4d7a 0%, #0891b2 100%);
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--dark);
-            color: var(--light);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* ========== HEADER / NAVIGATION ========== */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 70px;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 5%;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .header--scrolled {
-            height: 60px;
-            background: rgba(15, 23, 42, 0.95);
-        }
-
-        .header__logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .header__nav {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .header__link {
-            color: var(--light);
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            padding: 0.5rem 0;
-            transition: color 0.3s ease;
-        }
-
-        .header__link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .header__link:hover {
-            color: var(--accent);
-        }
-
-        .header__link:hover::after {
-            width: 100%;
-        }
-
-        /* ========== HERO SECTION ========== */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 120px 5% 80px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(8, 145, 178, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
-            z-index: 0;
-        }
-
-        .hero__container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero__content {
-            /* Conteneur du texte */
-        }
-
-        .hero__title {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #fff 0%, #0891b2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .hero__subtitle {
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            color: var(--secondary);
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-            animation: fadeInUp 0.8s ease 0.2s backwards;
-        }
-
-        .hero__description {
-            font-size: 1.2rem;
-            color: rgba(241, 245, 249, 0.8);
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            animation: fadeInUp 0.8s ease 0.4s backwards;
-        }
-
-        .hero__cta {
-            display: flex;
-            gap: 1rem;
-            animation: fadeInUp 0.8s ease 0.6s backwards;
-        }
-
-        .hero__image-wrapper {
-            position: relative;
-            animation: fadeInRight 1s ease;
-        }
-
-        .hero__image {
-            width: 100%;
-            height: auto;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero__image-wrapper::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            right: -20px;
-            width: 100%;
-            height: 100%;
-            border: 3px solid var(--accent);
-            border-radius: 20px;
-            z-index: 0;
-        }
-
-        /* ========== BUTTONS ========== */
-        .button {
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
-            display: inline-block;
-        }
-
-        .button--primary {
-            background: var(--gradient);
-            color: white;
-            box-shadow: 0 4px 15px rgba(8, 145, 178, 0.4);
-        }
-
-        .button--primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(8, 145, 178, 0.6);
-        }
-
-        .button--secondary {
-            background: transparent;
-            color: var(--light);
-            border: 2px solid var(--secondary);
-        }
-
-        .button--secondary:hover {
-            background: var(--secondary);
-            transform: translateY(-2px);
-        }
-
-        /* ========== PROJECTS SECTION ========== */
-        .projects {
-            padding: 100px 5%;
-            position: relative;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-header__title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-header__subtitle {
-            font-size: 1.2rem;
-            color: rgba(241, 245, 249, 0.7);
-        }
-
-        .projects__carousel-wrapper {
-            max-width: 1600px;
-            margin: 0 auto;
-            min-height: 450px;
-            overflow: visible;
-        }
-
-        .owl-carousel,
-        .owl-stage-outer,
-        .owl-stage {
-            height: 450px !important;
-        }
-
-        .project-card {
-            margin: 0 15px;
-            width: 350px;
-            height: 450px;
-            display: flex;
-            align-items: flex-end;
-            background: #1e293b no-repeat center center / cover;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.9) 100%);
-            transition: all 0.5s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(8, 145, 178, 0.3);
-        }
-
-        .project-card--active {
-            width: 550px;
-            box-shadow: 0 25px 50px rgba(8, 145, 178, 0.4);
-            height: 450px;
-        }
-
-        .project-card__content {
-            padding: 2rem;
-            color: #fff;
-            position: relative;
-            z-index: 2;
-            transform: translateY(calc(100% - 70px));
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .project-card--active .project-card__content {
-            transform: translateY(0);
-        }
-
-        .project-card__title {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-            color: var(--accent);
-        }
-
-        .project-card__description {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease 0.1s;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-
-        .project-card--active .project-card__description {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .carousel__dots {
-            text-align: center;
-            margin-top: 3rem;
-        }
-
-        .carousel__dot {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            margin: 0 6px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .carousel__dot--active {
-            width: 30px;
-            border-radius: 6px;
-            background: var(--accent);
-        }
-
-        /* ========== CONTACT SECTION ========== */
-        .contact {
-            padding: 100px 5%;
-            background: linear-gradient(135deg, rgba(10, 77, 122, 0.1) 0%, rgba(8, 145, 178, 0.1) 100%);
-            position: relative;
-        }
-
-        .contact__container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .contact__grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            margin-top: 3rem;
-        }
-
-        .contact__info-list {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .contact-info-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .contact-info-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateX(10px);
-        }
-
-        .contact-info-item__icon {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .contact-info-item__content {
-            flex: 1;
-        }
-
-        .contact-info-item__label {
-            font-weight: 600;
-            color: var(--light);
-            margin-bottom: 0.25rem;
-        }
-
-        .contact-info-item__link {
-            color: var(--secondary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .contact-info-item__link:hover {
-            color: var(--accent);
-        }
-
-        .contact__form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .form-field {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .form-field__label {
-            font-weight: 600;
-            color: var(--light);
-        }
-
-        .form-field__input,
-        .form-field__textarea {
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            color: var(--light);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        .form-field__input:focus,
-        .form-field__textarea:focus {
-            outline: none;
-            border-color: var(--secondary);
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .form-field__textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        /* ========== FOOTER ========== */
-        .footer {
-            padding: 2rem 5%;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.3);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer__text {
-            color: rgba(241, 245, 249, 0.7);
-        }
-
-        /* ========== PARTICLES BACKGROUND ========== */
-        .particles-background {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
-        /* ========== ANIMATIONS ========== */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* ========== RESPONSIVE ========== */
-        @media (max-width: 1024px) {
-            .hero__container,
-            .contact__grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .hero__image-wrapper {
-                order: -1;
-            }
-
-            .header__nav {
-                gap: 1rem;
-            }
-
-            .project-card {
-                width: 300px;
-                height: 400px;
-            }
-
-            .project-card--active {
-                width: 450px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                padding: 0 1rem;
-            }
-
-            .header__nav {
-                gap: 0.5rem;
-            }
-
-            .header__link {
-                font-size: 0.9rem;
-            }
-
-            .hero {
-                padding: 100px 1rem 60px;
-            }
-
-            .hero__cta {
-                flex-direction: column;
-            }
-
-            .project-card {
-                width: 250px;
-                height: 350px;
-            }
-
-            .project-card--active {
-                width: 320px;
-            }
-
-            .contact,
-            .projects {
-                padding: 60px 1rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="test.css">
 </head>
 <body>
     <!-- HEADER -->
@@ -603,8 +29,16 @@
                     <a href="#contact" class="button button--secondary">Me contacter</a>
                 </div>
             </div>
-            <div class="hero__image-wrapper">
-                <img src="paysage.jpg" alt="Portfolio" class="hero__image">
+            <div class="terminal">
+                <div class="terminal__bar">
+                    <span class="terminal__dot terminal__dot--red"></span>
+                    <span class="terminal__dot terminal__dot--yellow"></span>
+                    <span class="terminal__dot terminal__dot--green"></span>
+                    <span class="terminal__filename">portfolio.js</span>
+                </div>
+                <div class="terminal__body">
+                    <pre class="terminal__code" id="terminal-code"></pre>
+                </div>
             </div>
         </div>
     </section>
@@ -613,45 +47,48 @@
     <section id="projects" class="projects">
         <header class="section-header">
             <h2 class="section-header__title">Mes Projets</h2>
-            <p class="section-header__subtitle">Découvrez mes réalisations et projets récents</p>
+            <p class="section-header__subtitle">Découvrez mes quelques réalisations et projets récents</p>
         </header>
-        <div class="projects__carousel-wrapper">
-            <div class="owl-carousel projects-carousel owl-theme">
-                <div class="project-card" style="background-image: url('paysage.jpg');">
-                    <div class="project-card__content">
-                        <h3 class="project-card__title">Application E-commerce</h3>
-                        <p class="project-card__description">Plateforme de vente en ligne complète avec panier, paiement sécurisé et gestion des stocks. Développée avec React et Node.js.</p>
-                    </div>
+        <div class="projects__grid">
+            <div class="project-card"
+                 data-images='["assets/Projects/Liberabot/DiscordBot.png","assets/Projects/Liberabot/LiberabotCode.png","assets/Projects/Liberabot/Patrick.jpg"]'
+                 style="background-image: url('assets/Projects/Liberabot/DiscordBot.png');">
+                <button class="card-nav card-nav--prev" aria-label="Image précédente">&#8249;</button>
+                <button class="card-nav card-nav--next" aria-label="Image suivante">&#8250;</button>
+                <div class="card-dots"></div>
+                <div class="project-card__content">
+                    <h3 class="project-card__title">Liberabot</h3>
+                    <p class="project-card__description">Bot Discord multifonction développé en JavaScript. Commandes de modération, interactions automatisées et intégration d'API tierces.</p>
                 </div>
-                <div class="project-card" style="background-image: url('paysage.jpg');">
-                    <div class="project-card__content">
-                        <h3 class="project-card__title">Dashboard Analytics</h3>
-                        <p class="project-card__description">Interface d'analyse de données en temps réel avec visualisations interactives. Technologies: Vue.js, D3.js et Firebase.</p>
-                    </div>
+            </div>
+            <div class="project-card"
+                 data-images='["assets/Projects/Portfolio/HeaderPortfolio.png","assets/Projects/Portfolio/ContactPortfolio.png"]'
+                 style="background-image: url('assets/Projects/Portfolio/HeaderPortfolio.png');">
+                <button class="card-nav card-nav--prev" aria-label="Image précédente">&#8249;</button>
+                <button class="card-nav card-nav--next" aria-label="Image suivante">&#8250;</button>
+                <div class="card-dots"></div>
+                <div class="project-card__content">
+                    <h3 class="project-card__title">Portfolio</h3>
+                    <p class="project-card__description">Conçu et développé from scratch en HTML, CSS et JavaScript vanilla. Animation terminal, particles et formulaire sécurisé.</p>
                 </div>
-                <div class="project-card" style="background-image: url('paysage.jpg');">
-                    <div class="project-card__content">
-                        <h3 class="project-card__title">Application Mobile</h3>
-                        <p class="project-card__description">Application de gestion de tâches collaborative avec synchronisation cloud. Développée en React Native et MongoDB.</p>
-                    </div>
+            </div>
+            <div class="project-card"
+                 data-images='["assets/Projects/FMR/1Landing.png","assets/Projects/FMR/Dashboard.png","assets/Projects/FMR/SwipPage.png","assets/Projects/FMR/Agenda.png","assets/Projects/FMR/DiscussionPage.png","assets/Projects/FMR/ProfilePage.png"]'
+                 style="background-image: url('assets/Projects/FMR/1Landing.png');">
+                <button class="card-nav card-nav--prev" aria-label="Image précédente">&#8249;</button>
+                <button class="card-nav card-nav--next" aria-label="Image suivante">&#8250;</button>
+                <div class="card-dots"></div>
+                <div class="project-card__content">
+                    <h3 class="project-card__title">FindMyRoof</h3>
+                    <p class="project-card__description">Application de recherche de logements — agrège les annonces immobilières et facilite la mise en relation entre locataires et propriétaires.</p>
                 </div>
-                <div class="project-card" style="background-image: url('paysage.jpg');">
-                    <div class="project-card__content">
-                        <h3 class="project-card__title">Site Portfolio</h3>
-                        <p class="project-card__description">Portfolio interactif avec animations 3D et design moderne. Optimisé pour les performances et le SEO.</p>
-                    </div>
-                </div>
-                <div class="project-card" style="background-image: url('paysage.jpg');">
-                    <div class="project-card__content">
-                        <h3 class="project-card__title">API REST</h3>
-                        <p class="project-card__description">API robuste pour application multi-clients avec authentification JWT et documentation Swagger. Express.js et PostgreSQL.</p>
-                    </div>
-                </div>
-                <div class="project-card" style="background-image: url('paysage.jpg');">
-                    <div class="project-card__content">
-                        <h3 class="project-card__title">Plateforme SaaS</h3>
-                        <p class="project-card__description">Solution SaaS complète avec système d'abonnement, tableau de bord admin et intégrations tierces.</p>
-                    </div>
+            </div>
+            <div class="project-card project-card--cta" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+                <div class="project-card__content project-card__content--cta">
+                    <div class="project-card__cta-icon">+</div>
+                    <h3 class="project-card__title">Prochain projet</h3>
+                    <p class="project-card__description">Vous avez une idée ou un projet à réaliser ? Je suis à la recherche de nouvelles opportunités pour développer mes compétences.</p>
+                    <a href="#contact" class="project-card__cta-link">Me contacter</a>
                 </div>
             </div>
         </div>
@@ -662,7 +99,6 @@
         <div class="contact__container">
             <header class="section-header">
                 <h2 class="section-header__title">Contactez-moi</h2>
-                <p class="section-header__subtitle">Discutons de votre prochain projet</p>
             </header>
             <div class="contact__grid">
                 <div class="contact__info-list">
@@ -670,44 +106,56 @@
                         <div class="contact-info-item__icon">✉️</div>
                         <div class="contact-info-item__content">
                             <p class="contact-info-item__label">Email</p>
-                            <a href="mailto:robine.charles-edouard@example.com" class="contact-info-item__link">robine.charles-edouard@example.com</a>
+                            <a href="mailto:charlesedouardrobine2@gmail.com" class="contact-info-item__link">charlesedouardrobine2@gmail.com</a>
                         </div>
                     </div>
                     <div class="contact-info-item">
                         <div class="contact-info-item__icon">📱</div>
                         <div class="contact-info-item__content">
-                            <p class="contact-info-item__label">Téléphone</p>
-                            <a href="tel:+1234567890" class="contact-info-item__link">+1 234 567 890</a>
+                            <p class="contact-info-item__label">Téléphone (FR)</p>
+                            <a href="tel:+33760103044" class="contact-info-item__link">+33 7 60 10 30 44</a>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-info-item__icon">📱</div>
+                        <div class="contact-info-item__content">
+                            <p class="contact-info-item__label">Téléphone (BE)</p>
+                            <a href="tel:+32456962479" class="contact-info-item__link">+32 456 96 24 79</a>
                         </div>
                     </div>
                     <div class="contact-info-item">
                         <div class="contact-info-item__icon">💼</div>
                         <div class="contact-info-item__content">
                             <p class="contact-info-item__label">LinkedIn</p>
-                            <a href="https://www.linkedin.com/in/robine-charles-edouard/" target="_blank" class="contact-info-item__link">robine-charles-edouard</a>
+                            <a href="https://www.linkedin.com/in/charles-edouard-robine" target="_blank" rel="noopener noreferrer" class="contact-info-item__link">charles-edouard-robine</a>
                         </div>
                     </div>
                     <div class="contact-info-item">
                         <div class="contact-info-item__icon">💻</div>
                         <div class="contact-info-item__content">
                             <p class="contact-info-item__label">GitHub</p>
-                            <a href="https://github.com/robine-charles-edouard" target="_blank" class="contact-info-item__link">robine-charles-edouard</a>
+                            <a href="https://github.com/Celaerius" target="_blank" rel="noopener noreferrer" class="contact-info-item__link">Celaerius</a>
                         </div>
                     </div>
                 </div>
-                <form class="contact__form" action="https://formspree.io/f/your-form-id" method="POST">
+                <form id="contact-form" class="contact__form" novalidate>
                     <div class="form-field">
                         <label for="name" class="form-field__label">Nom complet</label>
-                        <input type="text" id="name" name="name" class="form-field__input" required>
+                        <input type="text" id="name" name="name" class="form-field__input" required
+                               maxlength="100" autocomplete="name" placeholder="Votre nom">
                     </div>
                     <div class="form-field">
                         <label for="email" class="form-field__label">Adresse email</label>
-                        <input type="email" id="email" name="_replyto" class="form-field__input" required>
+                        <input type="email" id="email" name="email" class="form-field__input" required
+                               maxlength="254" autocomplete="email" placeholder="votre@email.com">
                     </div>
                     <div class="form-field">
                         <label for="message" class="form-field__label">Votre message</label>
-                        <textarea id="message" name="message" class="form-field__textarea" required></textarea>
+                        <textarea id="message" name="message" class="form-field__textarea" required
+                                  maxlength="2000" placeholder="Votre message..."></textarea>
                     </div>
+                    <div id="form-error" style="color:#e74c3c;display:none;margin-bottom:8px;border-radius:8px;padding:0.75rem;background:rgba(231,76,60,0.1);"></div>
+                    <div id="form-success" style="color:#2ecc71;display:none;margin-bottom:8px;border-radius:8px;padding:0.75rem;background:rgba(46,204,113,0.1);">Message envoyé avec succès !</div>
                     <button type="submit" class="button button--primary">Envoyer le message</button>
                 </form>
             </div>
@@ -722,81 +170,8 @@
     <!-- PARTICLES BACKGROUND -->
     <div id="particles-js" class="particles-background"></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script>
-        particlesJS("particles-js", {
-            particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: "#0891b2" },
-                shape: { type: "circle" },
-                opacity: { value: 0.3, random: true },
-                size: { value: 3, random: true },
-                line_linked: {
-                    enable: true,
-                    distance: 150,
-                    color: "#0891b2",
-                    opacity: 0.2,
-                    width: 1
-                },
-                move: {
-                    enable: true,
-                    speed: 2,
-                    direction: "none",
-                    random: true,
-                    out_mode: "out"
-                }
-            },
-            interactivity: {
-                events: {
-                    onhover: { enable: true, mode: "grab" },
-                    onclick: { enable: true, mode: "push" }
-                },
-                modes: {
-                    grab: { distance: 140, line_linked: { opacity: 0.5 } },
-                    push: { particles_nb: 4 }
-                }
-            }
-        });
-
-        $(document).ready(function() {
-            $(".projects-carousel").owlCarousel({
-                autoWidth: true,
-                loop: true,
-                margin: 20,
-                nav: false,
-                dots: true,
-                responsive: {
-                    0: { items: 1 },
-                    600: { items: 2 },
-                    1000: { items: 3 }
-                }
-            });
-
-            $(".projects-carousel .project-card").click(function() {
-                $(".projects-carousel .project-card").not($(this)).removeClass("project-card--active");
-                $(this).toggleClass("project-card--active");
-            });
-
-            $(window).scroll(function() {
-                if ($(this).scrollTop() > 50) {
-                    $('.header').addClass('header--scrolled');
-                } else {
-                    $('.header').removeClass('header--scrolled');
-                }
-            });
-
-            $('a[href^="#"]').on('click', function(e) {
-                e.preventDefault();
-                const target = $(this.getAttribute('href'));
-                if (target.length) {
-                    $('html, body').stop().animate({
-                        scrollTop: target.offset().top - 70
-                    }, 1000);
-                }
-            });
-        });
-    </script>
+    <script src="test.js"></script>
 </body>
 </html>
