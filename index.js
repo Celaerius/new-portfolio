@@ -266,3 +266,11 @@ document.querySelectorAll('a[href^="#"]').forEach(function (link) {
         }
     });
 });
+
+document.getElementById('copy-email').addEventListener('click', function () {
+    navigator.clipboard.writeText('contact@celaerius.dev').then(function () {
+        const fb = document.getElementById('copy-feedback');
+        fb.style.opacity = '1';
+        setTimeout(function () { fb.style.opacity = '0'; }, 2000);
+    });
+});
