@@ -259,6 +259,10 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    touch-action: manipulation;
+    user-select: none;
 }
 
 .project-card::before {
@@ -274,18 +278,23 @@ body {
 }
 
 .project-card__content {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
     padding: 1.75rem;
     color: #fff;
-    position: relative;
-    z-index: 2;
+    z-index: 4;
     transform: translateY(calc(100% - 70px));
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s ease, backdrop-filter 0.4s ease;
-    background: rgba(10, 15, 30, 0.35);
-    width: 100%;
+    background: linear-gradient(180deg, rgba(2, 6, 23, 0.2) 0%, rgba(2, 6, 23, 0.78) 100%);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-sizing: border-box;
 }
 
 .project-card:not(.project-card--cta):hover .project-card__content {
-    background: rgba(10, 15, 30, 0.75);
+    background: linear-gradient(180deg, rgba(2, 6, 23, 0.25) 0%, rgba(2, 6, 23, 0.9) 100%);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -335,7 +344,7 @@ body {
     color: #fff;
     width: 36px;
     height: 36px;
-    border-radius: 50%;
+    border-radius: 100%;
     font-size: 1.4rem;
     line-height: 1;
     cursor: pointer;
@@ -369,6 +378,7 @@ body {
     display: flex;
     gap: 6px;
     z-index: 4;
+    opacity: 1;
 }
 
 .card-dot {
@@ -404,20 +414,30 @@ body {
 .project-card--cta {
     border: 2px dashed rgba(255, 255, 255, 0.2);
     justify-content: center;
+    align-items: center;
 }
 
 .project-card--cta:hover {
     border-color: var(--accent);
+    transform: none;
+    box-shadow: none;
 }
 
-.project-card__content--cta {
+.project-card--cta .project-card__content,
+.project-card--cta:hover .project-card__content {
+    position: relative;
+    inset: auto;
     transform: none !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-top: none !important;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.75rem;
-    padding-bottom: 2.5rem;
+    padding: 2rem 1.5rem;
 }
 
 .project-card--cta .project-card__description {
@@ -736,37 +756,147 @@ body {
     }
 }
 
-/* ---- Toggle description mobile ---- */
+/* ========== MOBILE : BOUTON "VOIR LE PROJET" ========== */
+.card-see-more {
+    display: none;
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+}
+
+.card-see-more--active,
+.card-see-more:active {
+    background: rgba(245, 158, 11, 0.2);
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* ========== MOBILE : BOTTOM SHEET ========== */
+.card-sheet {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #1e293b;
+    border-radius: 20px 20px 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0 1.25rem 1.5rem;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 5;
+    display: none;
+}
+
+.card-sheet--open {
+    transform: translateY(0);
+}
+
+.card-sheet__handle {
+    width: 36px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    margin: 0.75rem auto 1rem;
+}
+
+.card-sheet__close {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.card-sheet__close:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+.card-sheet__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+
+.card-sheet__desc {
+    font-size: 0.9rem;
+    color: rgba(241, 245, 249, 0.8);
+    line-height: 1.6;
+}
+
+/* ========== ACTIVATION MOBILE UNIQUEMENT ========== */
 @media (max-width: 1024px) {
-    .project-card .project-card__content {
-        transform: translateY(calc(100% - 70px));
-        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    .project-card {
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06), 0 8px 24px rgba(8, 145, 178, 0.16);
     }
 
-    .project-card.card--expanded .project-card__content {
-        transform: translateY(0);
-        background: rgba(10, 15, 30, 0.75);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+    .project-card:active {
+        transform: none;
+        box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.22), 0 8px 24px rgba(8, 145, 178, 0.2);
     }
 
-    .project-card.card--expanded .project-card__description {
-        opacity: 1;
-        transform: translateY(0);
+    /* Masquer les flèches, afficher le bouton et le sheet */
+    .card-nav {
+        display: none;
     }
 
-    /* Désactive le hover CSS sur mobile pour éviter les conflits */
+    .card-see-more,
+    .card-sheet {
+        display: block;
+    }
+
+    /* Les dots remontent au-dessus du bouton */
+    .card-dots {
+        bottom: 3.5rem;
+    }
+
+    /* Désactiver le hover CSS (pas de survol sur mobile) */
     .project-card:hover .project-card__content {
         transform: translateY(calc(100% - 70px));
+        background: rgba(10, 15, 30, 0.35);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border-top: none;
     }
 
-    .project-card.card--expanded:hover .project-card__content {
-        transform: translateY(0);
+    .project-card:hover .project-card__description {
+        opacity: 0;
+        transform: translateY(10px);
     }
 }
 
 @media (max-width: 1024px) {
-    .card-nav {
-        display: none;
+    .project-card__content {
+        padding-bottom: 4rem; /* espace sous le titre pour le bouton */
+        bottom: 3.5rem;
+        padding-top: 0.75rem;
+    }
+    .project-card__title {
+        font-size: 1.3rem;
     }
 }

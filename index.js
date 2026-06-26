@@ -205,7 +205,6 @@ document.querySelectorAll('.project-card[data-images]').forEach(function (card) 
     const images = JSON.parse(card.dataset.images);
     let current = 0;
     let animating = false;
-    let expanded = false; // état tap mobile
 
     // Déplacer le background-image du card vers un div dédié
     const bg = document.createElement('div');
@@ -216,6 +215,7 @@ document.querySelectorAll('.project-card[data-images]').forEach(function (card) 
 
     // Créer les dots
     const dotsContainer = card.querySelector('.card-dots');
+    dotsContainer.innerHTML = '';
     images.forEach(function (_, i) {
         const dot = document.createElement('span');
         dot.className = 'card-dot' + (i === 0 ? ' card-dot--active' : '');
@@ -276,13 +276,10 @@ document.querySelectorAll('.project-card[data-images]').forEach(function (card) 
             // Swipe horizontal → changer image
             if (dx < 0) goTo(current + 1);
             else goTo(current - 1);
-        } else if (!touchMoved) {
-            // Tap simple → toggle description
-            expanded = !expanded;
-            card.classList.toggle('card--expanded', expanded);
         }
     });
 });
+
 /* ---- Header scroll + smooth scroll ---- */
 window.addEventListener('scroll', function () {
     document.querySelector('.header').classList.toggle('header--scrolled', window.scrollY > 50);
@@ -297,11 +294,153 @@ document.querySelectorAll('a[href^="#"]').forEach(function (link) {
         }
     });
 });
+/* ---- Slideshow des cartes projet ---- */
+document.querySelectorAll('.project-card[data-images]').forEach(function (card) {
+    const images = JSON.parse(card.dataset.images);
+    let current = 0;
+    let animating = false;
 
-document.getElementById('copy-email').addEventListener('click', function () {
-    navigator.clipboard.writeText('contact@celaerius.dev').then(function () {
-        const fb = document.getElementById('copy-feedback');
-        fb.style.opacity = '1';
-        setTimeout(function () { fb.style.opacity = '0'; }, 2000);
+    // Déplacer le background-image du card vers un div dédié
+    const bg = document.createElement('div');
+    bg.className = 'card-bg';
+    bg.style.backgroundImage = card.style.backgroundImage;
+    card.style.backgroundImage = '';
+    card.prepend(bg);
+
+    // Créer les dots
+    const dotsContainer = card.querySelector('.card-dots');
+    dotsContainer.innerHTML = '';
+    images.forEach(function (_, i) {
+        const dot = document.createElement('span');
+        dot.className = 'card-dot' + (i === 0 ? ' card-dot--active' : '');
+        dot.addEventListener('click', function (e) {
+            e.stopPropagation();
+            goTo(i);
+        });
+        dotsContainer.appendChild(dot);
+    });
+
+    function goTo(index) {
+        if (animating || index === current) return;
+        animating = true;
+        current = (index + images.length) % images.length;
+        bg.style.opacity = '0';
+        setTimeout(function () {
+            bg.style.backgroundImage = "url('" + images[current] + "')";
+            bg.style.opacity = '1';
+            dotsContainer.querySelectorAll('.card-dot').forEach(function (d, i) {
+                d.classList.toggle('card-dot--active', i === current);
+            });
+            setTimeout(function () { animating = false; }, 400);
+        }, 350);
+    }
+
+    // Boutons prev/next (desktop uniquement)
+    card.querySelector('.card-nav--prev').addEventListener('click', function (e) {
+        e.stopPropagation();
+        goTo(current - 1);
+    });
+    card.querySelector('.card-nav--next').addEventListener('click', function (e) {
+        e.stopPropagation();
+        goTo(current + 1);
+    });
+
+    /* ---- Bouton "Voir le projet" (mobile) ---- */
+    const seeMoreBtn = document.createElement('button');
+    seeMoreBtn.className = 'card-see-more';
+    seeMoreBtn.setAttribute('aria-label', 'Voir les détails du projet');
+    seeMoreBtn.innerHTML = 'Voir le projet <span aria-hidden="true">↑</span>';
+    card.appendChild(seeMoreBtn);
+
+    /* ---- Bottom sheet ---- */
+    const title = card.querySelector('.project-card__title').textContent;
+    const desc  = card.querySelector('.project-card__description').textContent;
+
+    const sheet = document.createElement('div');
+    sheet.className = 'card-sheet';
+    sheet.setAttribute('role', 'dialog');
+    sheet.setAttribute('aria-modal', 'true');
+    sheet.setAttribute('aria-label', 'Détails : ' + title);
+    sheet.innerHTML =
+        '<div class="card-sheet__handle"></div>' +
+        '<button class="card-sheet__close" aria-label="Fermer">✕</button>' +
+        '<h3 class="card-sheet__title">' + title + '</h3>' +
+        '<p class="card-sheet__desc">' + desc + '</p>';
+    card.appendChild(sheet);
+
+    function openSheet() {
+        sheet.classList.add('card-sheet--open');
+        seeMoreBtn.classList.add('card-see-more--active');
+        document.body.classList.add('sheet-open');
+    }
+
+    function closeSheet() {
+        sheet.classList.remove('card-sheet--open');
+        seeMoreBtn.classList.remove('card-see-more--active');
+        document.body.classList.remove('sheet-open');
+    }
+
+    seeMoreBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        sheet.classList.contains('card-sheet--open') ? closeSheet() : openSheet();
+    });
+
+    sheet.querySelector('.card-sheet__close').addEventListener('click', function (e) {
+        e.stopPropagation();
+        closeSheet();
+    });
+
+    /* ---- Swipe mobile ---- */
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var touchMoved  = false;
+
+    card.addEventListener('touchstart', function (e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchMoved  = false;
+    }, { passive: true });
+
+    card.addEventListener('touchmove', function (e) {
+        var dx = Math.abs(e.touches[0].clientX - touchStartX);
+        var dy = Math.abs(e.touches[0].clientY - touchStartY);
+        if (dx > 8 || dy > 8) touchMoved = true;
+    }, { passive: true });
+
+    card.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        var dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+        if (touchMoved && Math.abs(dx) > 40 && dy < 60) {
+            if (dx < 0) goTo(current + 1);
+            else        goTo(current - 1);
+        }
+    });
+});
+
+/* ---- Fermer tous les sheets en cliquant en dehors ---- */
+document.addEventListener('click', function (e) {
+    if (!e.target.closest('.project-card')) {
+        document.querySelectorAll('.card-sheet--open').forEach(function (s) {
+            s.classList.remove('card-sheet--open');
+        });
+        document.querySelectorAll('.card-see-more--active').forEach(function (b) {
+            b.classList.remove('card-see-more--active');
+        });
+        document.body.classList.remove('sheet-open');
+    }
+});
+
+/* ---- Header scroll + smooth scroll ---- */
+window.addEventListener('scroll', function () {
+    document.querySelector('.header').classList.toggle('header--scrolled', window.scrollY > 50);
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            e.preventDefault();
+            window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' });
+        }
     });
 });
