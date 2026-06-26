@@ -735,3 +735,38 @@ body {
         padding: 60px 1rem;
     }
 }
+
+/* ---- Toggle description mobile ---- */
+@media (max-width: 1024px) {
+    .project-card .project-card__content {
+        transform: translateY(calc(100% - 70px));
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .project-card.card--expanded .project-card__content {
+        transform: translateY(0);
+        background: rgba(10, 15, 30, 0.75);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+
+    .project-card.card--expanded .project-card__description {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Désactive le hover CSS sur mobile pour éviter les conflits */
+    .project-card:hover .project-card__content {
+        transform: translateY(calc(100% - 70px));
+    }
+
+    .project-card.card--expanded:hover .project-card__content {
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 1024px) {
+    .card-nav {
+        display: none;
+    }
+}

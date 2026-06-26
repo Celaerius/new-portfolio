@@ -205,6 +205,7 @@ document.querySelectorAll('.project-card[data-images]').forEach(function (card) 
     const images = JSON.parse(card.dataset.images);
     let current = 0;
     let animating = false;
+    let expanded = false; // état tap mobile
 
     // Déplacer le background-image du card vers un div dédié
     const bg = document.createElement('div');
@@ -229,7 +230,6 @@ document.querySelectorAll('.project-card[data-images]').forEach(function (card) 
         if (animating || index === current) return;
         animating = true;
         current = (index + images.length) % images.length;
-
         bg.style.opacity = '0';
         setTimeout(function () {
             bg.style.backgroundImage = "url('" + images[current] + "')";
@@ -241,17 +241,48 @@ document.querySelectorAll('.project-card[data-images]').forEach(function (card) 
         }, 350);
     }
 
+    // Boutons prev/next (desktop)
     card.querySelector('.card-nav--prev').addEventListener('click', function (e) {
         e.stopPropagation();
         goTo(current - 1);
     });
-
     card.querySelector('.card-nav--next').addEventListener('click', function (e) {
         e.stopPropagation();
         goTo(current + 1);
     });
-});
 
+    /* ---- Mobile : swipe + tap ---- */
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var touchMoved = false;
+
+    card.addEventListener('touchstart', function (e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchMoved = false;
+    }, { passive: true });
+
+    card.addEventListener('touchmove', function (e) {
+        var dx = Math.abs(e.touches[0].clientX - touchStartX);
+        var dy = Math.abs(e.touches[0].clientY - touchStartY);
+        if (dx > 8 || dy > 8) touchMoved = true;
+    }, { passive: true });
+
+    card.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        var dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+
+        if (touchMoved && Math.abs(dx) > 40 && dy < 60) {
+            // Swipe horizontal → changer image
+            if (dx < 0) goTo(current + 1);
+            else goTo(current - 1);
+        } else if (!touchMoved) {
+            // Tap simple → toggle description
+            expanded = !expanded;
+            card.classList.toggle('card--expanded', expanded);
+        }
+    });
+});
 /* ---- Header scroll + smooth scroll ---- */
 window.addEventListener('scroll', function () {
     document.querySelector('.header').classList.toggle('header--scrolled', window.scrollY > 50);
